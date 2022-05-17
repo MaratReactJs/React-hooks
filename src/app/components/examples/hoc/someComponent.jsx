@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Subtitle from "../../common/typografy/subtitle";
 
 const SomeComponent = ({ name }) => {
-    return <Subtitle>{name || "Component"}</Subtitle>;
+    return <Subtitle>{name || "Передаем обычный компонент"}</Subtitle>;
 };
 SomeComponent.propTypes = {
     name: PropTypes.string
