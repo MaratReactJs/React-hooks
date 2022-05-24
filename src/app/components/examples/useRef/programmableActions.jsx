@@ -7,7 +7,7 @@ const ProgrammableActionsExample = () => {
         inputRef.current.focus();
     };
     const handleClickWidth = () => {
-        inputRef.current.style.width = "100px";
+        inputRef.current.style.width = "80px";
     };
     return (
         <CardWrapper>
