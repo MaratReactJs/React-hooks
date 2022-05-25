@@ -1,5 +1,52 @@
 import React from "react";
 import CollapseWrapper from "../common/collapse";
+import PropTypes from "prop-types";
+import Divider from "../common/divider";
+import SmallTitle from "../common/typografy/smallTitle";
+import CardWrapper from "../common/Card";
+
+// Simple component
+const SimpleComponent = ({ onLogin, onLogout, isAuth }) => {
+    return isAuth ? (
+        <button className="btn btn-primary" onClick={onLogin}>
+            Войти
+        </button>
+    ) : (
+        <button className="btn btn-secondary" onClick={onLogout}>
+            Выйти из системы
+        </button>
+    );
+};
+
+SimpleComponent.propTypes = {
+    onLogin: PropTypes.func,
+    onLogout: PropTypes.func,
+    isAuth: PropTypes.array
+};
+
+// HOC component
+const withFunctions = (Component) => (props) => {
+    const handleLogin = () => {
+        localStorage.setItem("auth", "token");
+    };
+    const handleLogout = () => {
+        localStorage.removeItem("auth");
+    };
+    const isAuth = !localStorage.getItem("auth");
+    return (
+        <CardWrapper>
+            <Component
+                isAuth={isAuth}
+                onLogin={handleLogin}
+                onLogout={handleLogout}
+                {...props}
+            />
+        </CardWrapper>
+    );
+};
+
+// Component with HOC
+const ComponentWithHoc = withFunctions(SimpleComponent);
 
 const HocExercise = () => {
     return (
@@ -47,6 +94,9 @@ const HocExercise = () => {
                     <code>user</code> в <code>localStorage</code>
                 </li>
             </ul>
+            <Divider />
+            <SmallTitle>Решение</SmallTitle>
+            <ComponentWithHoc />
         </CollapseWrapper>
     );
 };
